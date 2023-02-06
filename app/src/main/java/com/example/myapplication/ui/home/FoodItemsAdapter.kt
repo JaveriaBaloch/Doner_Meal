@@ -2,6 +2,7 @@
 package com.example.myapplication.ui.home
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.icu.number.IntegerWidth
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,18 @@ class FoodItemsAdapter():
 
         val name = list[position]
         holder.item_name.setText(name)
+        holder.munisBtn.setOnClickListener {
+            if(Integer.parseInt(holder.quantity.text.toString())>0) {
+                val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1;
+                holder.quantity.setText(count.toString())
+            }
+        }
+        holder.plus.setOnClickListener {
+
+                val count: Int = Integer.parseInt(holder.quantity.text.toString()) + 1;
+                holder.quantity.setText(count.toString())
+
+        }
     }
 
     override fun getItemCount() = list.size
