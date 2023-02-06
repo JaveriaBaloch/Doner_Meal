@@ -6,7 +6,8 @@
     android:layout_height="220dp"
     android:background="@drawable/shape"
     android:orientation="vertical"
-    android:layout_marginBottom="17dp">
+    android:layout_marginTop="15dp"
+    android:id="@+id/cards">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,21 +17,22 @@
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            tools:srcCompat="@mipmap/coffee2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
 
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:id="@+id/itemTitle"
@@ -53,7 +55,7 @@
                 android:id="@+id/buttonGroup"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="90dp"
+                android:layout_marginLeft="145dp"
 
                 android:orientation="horizontal">
 

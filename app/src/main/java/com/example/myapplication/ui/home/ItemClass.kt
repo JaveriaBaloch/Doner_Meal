@@ -1,4 +1,6 @@
 
+package com.example.myapplication
 
-public class itemClass(val imageResource: Int, val titel:String, val price:Int ,val quantaty:String) {
+data  class itemClass(val imageResource: Int, val title:String, val price:Int ,val quantaty:String) {
+
 }
