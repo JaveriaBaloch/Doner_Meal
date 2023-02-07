@@ -6,12 +6,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.itemClass
-import com.google.android.material.textfield.TextInputEditText
 
 
 class HomeFragment : Fragment() {
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         val adapter = FoodItemsAdapter(this, list)
         recyclerView.adapter = adapter
 
-        var editText:TextInputEditText = view.findViewById(R.id.search_text)
+        var editText: EditText = view.findViewById(R.id.search_text)
           editText.addTextChangedListener(object : TextWatcher {
               val check = arrayListOf<itemClass>()
               override fun afterTextChanged(s: Editable) {
