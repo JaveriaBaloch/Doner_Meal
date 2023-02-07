@@ -1,21 +1,7 @@
 
 package com.example.myapplication
 
-<<<<<<< HEAD
-class Tutorial(
-    val name: String,
-    val img: String,
-    val category: String,
-    val price:Double
-) {
-    override fun toString(): String {
-        return "Category [name: ${this.name}, price: ${this.price}, category: ${this.category},img: ${this.img}]"
-    }
-}
-=======
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.widget.ImageView
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
@@ -64,4 +50,4 @@ data  class itemClass( val title:String, val imageResource: String,  val price:D
         }
     }
 }
->>>>>>> card_page
+

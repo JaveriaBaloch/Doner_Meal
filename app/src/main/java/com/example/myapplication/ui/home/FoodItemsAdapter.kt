@@ -3,13 +3,8 @@ package com.example.myapplication.ui.home
 
 import android.content.res.Resources
 import android.graphics.BitmapFactory
-<<<<<<< HEAD
-import android.icu.number.IntegerWidth
-import android.os.ParcelFileDescriptor.open
-import android.system.Os.open
-=======
 import android.graphics.drawable.Drawable
->>>>>>> card_page
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,13 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myapplication.R
-<<<<<<< HEAD
-import org.json.JSONArray
-=======
 import com.example.myapplication.itemClass
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.io.File
->>>>>>> card_page
 
 import java.net.URL
 import java.io.File
@@ -41,12 +31,8 @@ import org.json.JSONObject
 
 class FoodItemsAdapter(private val context: HomeFragment, private val itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<FoodItemsAdapter.FoodItemsViewHolder>() {
-<<<<<<< HEAD
 
-    var list: List<String> = arrayListOf()
-=======
     var list: ArrayList<itemClass> = itemClass
->>>>>>> card_page
     var selectionTracker: Array<Long>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemsViewHolder {
@@ -57,9 +43,6 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
 
     override fun getItemCount() = list.size
     override fun onBindViewHolder(holder: FoodItemsViewHolder, position: Int) {
-
-        /*val name = list[position]
-        holder.item_name.setText(name as CharSequence)*/
         holder.item_name.text = list.get(position).title
         holder.price.text = "£" + list.get(position).price.toString()
         val image = list[position].imageResource

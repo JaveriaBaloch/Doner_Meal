@@ -27,13 +27,6 @@ class HomeFragment : Fragment() {
         val recyclerView: RecyclerView
         recyclerView = view.findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-
-
-
-
-        /*val adapter = FoodItemsAdapter()
-        recyclerView.adapter = adapter*/
         val list = arrayListOf<itemClass>()
         for (menuItem in items) {
             list.add(menuItem)
