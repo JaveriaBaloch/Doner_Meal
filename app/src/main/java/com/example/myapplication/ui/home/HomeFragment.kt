@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.home
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import com.example.myapplication.itemClass
 
 
 class HomeFragment : Fragment() {
-
+    var PACKAGE_NAME:String? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +27,7 @@ class HomeFragment : Fragment() {
         val recyclerView: RecyclerView
         recyclerView = view.findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
+
 
 
 
