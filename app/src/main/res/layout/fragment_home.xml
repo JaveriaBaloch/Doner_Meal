@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         android:background="@drawable/input"
 
         app:layout_wrapBehaviorInParent="included"
@@ -28,28 +29,29 @@
             app:layout_wrapBehaviorInParent="included"
             android:hint="@string/search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:placeholderText="Enter the name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_text"
-                android:background="@drawable/input"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:background="@drawable/input"
                 android:textColor="@color/secondary"
-                 />
+
+                />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="364dp"
+        android:layout_height="862dp"
         android:layout_below="@id/searchView"
-        android:layout_marginEnd="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/searchView"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/cards" />
