@@ -21,22 +21,15 @@ data  class itemClass( val title:String, val imageResource: String,  val price:D
                 val buffer = ByteArray(inputStream.available())
                 inputStream.read(buffer)
                 inputStream.close()
-
-                //convert input to JSON
                 val json = JSONObject(String(buffer, Charsets.UTF_8))
                 val menuItems = json.getJSONArray("FoodItem")
 
-                //extract strings from the JSON objects
-                //create new Book objects and add them to the List
-                for (i in 0..(menuItems.length() - 1)) {
-                   /* val imageName = menuItems.getJSONObject(i).getString("image_url")
-                    val imageStream = context.assets.open("imgs/$imageName")
-                    val bitmap = BitmapFactory.decodeStream(imageStream)*/
+
+                for (i in 0 until menuItems.length()) {
                     menuItemList.add(
                         itemClass(
                         menuItems.getJSONObject(i).getString("name"),
                         menuItems.getJSONObject(i).getString("image_url"),
-                       //     bitmap,
                         menuItems.getJSONObject(i).getDouble("price"),)
                     )
                 }
