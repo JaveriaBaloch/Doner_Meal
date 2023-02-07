@@ -3,7 +3,8 @@
     <color name="primary">#DC700C</color>
     <color name="secondary">#511605</color>
     <color name="light_grey">#FBF9F9</color>
-
+    <color name="bg_grey">#FF444444</color>
+    <color name="grey">#C4C4C4</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
