@@ -3,9 +3,6 @@
     <color name="primary">#DC700C</color>
     <color name="secondary">#511605</color>
     <color name="light_grey">#FBF9F9</color>
-    <color name="grey">#AFAFAF</color>
-    <color name="off_white">#F9ECCF</color>
-    <color name="light_orange">#FFBA5C</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

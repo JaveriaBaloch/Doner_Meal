@@ -3,6 +3,8 @@ package com.example.myapplication.ui.home
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.icu.number.IntegerWidth
+import android.os.ParcelFileDescriptor.open
+import android.system.Os.open
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +15,27 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.R
 import org.json.JSONArray
-import java.io.InputStream
-import java.net.URL
 
+import java.net.URL
+import java.io.File
+import android.content.Context
+
+import androidx.appcompat.app.AppCompatActivity
+import java.io.IOException
+import java.io.InputStream
+import android.content.res.AssetManager
+import org.json.JSONException
+import org.json.JSONObject
 
 class FoodItemsAdapter():
     RecyclerView.Adapter<FoodItemsAdapter.FoodItemsViewHolder>() {
+
     var list: List<String> = arrayListOf()
     var selectionTracker: Array<Long>? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cards, parent, false)
+
         return FoodItemsViewHolder(itemView)
     }
 

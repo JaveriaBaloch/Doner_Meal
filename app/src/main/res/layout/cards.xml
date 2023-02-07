@@ -21,8 +21,8 @@
             android:layout_height="150dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/coffeemake_foreground"
-            tools:srcCompat="@mipmap/coffeemake_foreground"
+            android:src="@mipmap/d1_foreground"
+            tools:srcCompat="@mipmap/d1_foreground"
             />
 
         <LinearLayout

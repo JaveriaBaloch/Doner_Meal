@@ -1,6 +1,13 @@
 
 package com.example.myapplication
 
-data  class itemClass(val imageResource: Int, val title:String, val price:Int ,val quantaty:String) {
-
+class Tutorial(
+    val name: String,
+    val img: String,
+    val category: String,
+    val price:Double
+) {
+    override fun toString(): String {
+        return "Category [name: ${this.name}, price: ${this.price}, category: ${this.category},img: ${this.img}]"
+    }
 }
