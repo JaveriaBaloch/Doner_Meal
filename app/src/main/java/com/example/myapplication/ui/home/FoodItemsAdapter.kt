@@ -48,7 +48,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
         /*val name = list[position]
         holder.item_name.setText(name as CharSequence)*/
         holder.item_name.text = list.get(position).title
-        holder.price.text = list.get(position).price.toString()
+        holder.price.text = "£"+list.get(position).price.toString()
         val imageName = list[position].imageResource
        /* val assetManager = context.getAssets()
         try {
