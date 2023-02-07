@@ -1,125 +1,146 @@
 {"FoodItem":[
 	{
+		"id": 1,
 		"name":"Döner kebab",
 		"price": 6.50,
 		"image_url": "@mipmap/Döner_kebab",
 		"category":"Döner Gerichte"
 	},
 	{
+		"id": 2,
 		"name":"Cheese Döner",
 		"price": 7.50,
 		"image_url": "@mipmap/Cheese_Döner",
 		"category":"Döner Gerichte"
 	},
 	{
+		"id": 3,
 		"name":"Big Döner",
 		"price": 7.50,
 		"image_url": "@mipmap/Big_Döner",
 		"category":"Döner Gerichte"
 	},
 	{
+		"id": 3,
 		"name":"Döner Box",
 		"price": 8.50,
 		"image_url": "@mipmap/Döner_Box",
 		"category":"Döner Gerichte"
 	},
 	 {
+		 "id": 4,
 		"name":"Omelette Mista",
 		"price": 5.50,
 		"image_url": "@mipmap/Omelette_Mista",
 		"category":"Omlette"
 	},
 	{
+		"id": 5,
 		"name":"Omelette Cavelinho",
 		"price": 6.50,
 		"image_url": "@mipmap/Omelette_Cavelinho",
 		"category":"Omlette"
 	},
 	{
+		"id": 6,
 		"name": "Omelette Spinaci",
 		"price": 5.50,
 		"image_url": "@mipmap/Omelette_Spinaci",
 		"category":"Omlette"
 	},
 	{
+		"id": 7,
 		"name":	"Menemen",
 		"price": 6,
 		"image_url": "@mipmap/Menemen",
 		"category":"Omlette"
 	},
 	{
+		"id": 8,
 		"name":"Pizza Margherita",
 		"price": 4.90,
 		"image_url": "@mipmap/Margherita",
 		"category":"Pizza"
 	},
 	{
+		"id": 9,
 		"name":"Pizza Salame",
 		"price": 5.90,
 		"image_url": "@mipmap/Salame",
 		"category":"Pizza"
 	},
 	{
+		"id": 10,
 		"name":"Pizza Vegetaria",
 		"price": 5.90,
 		"image_url": "@mipmap/Vegetaria",
 		"category":"Pizza"
 	},
 	{
+		"id": 11,
 		"name":"Pizza Tonno",
 		"price": 6.50,
 		"image_url": "@mipmap/Tonno",
 		"category":"Pizza"
 	},
 	{
+		"id": 12,
 		"name":"Pizza Ortolano",
 		"price": 5.40,
 		"image_url": "@mipmap/Ortolano",
 		"category":"Pizza"
 	},
 	{
+		"id": 13,
 		"name":"Pizza Pastirma",
 		"price": 7.50,
 		"image_url": "@mipmap/Pastirma",
 		"category":"Pizza"
 	},
 	{
+		"id": 14,
 		"name":"Falafel",
 		"price": 6,
 		"image_url": "@mipmap/Falafel",
 		"category":"Vegetarische Gerichte"
 	},
 	 {
+		 "id": 15,
 		"name":"Halloumi",
 		"price": 6,
 		"image_url": "@mipmap/Halloumi",
 		"category":"Vegetarische Gerichte"
 	},
 	{
+		"id": 16,
 		"name":"Falafel Teller",
 		"price": 10.90,
 		"image_url": "@mipmap/Falafel_Teller",
 		"category":"Vegetarische Gerichte"
 	},
 	{
+		"id": 17,
 		"name":"Vegetarische Teller",
 		"price": 11.50,
 		"image_url": "@mipmap/Vegetarische_Teller",
 		"category":"Vegetarische Gerichte"
 	},
 	{
+		"id": 18,
 		"name":"Insalata Mista",
 		"price": 5.50,
 		"image_url": "@mipmap/Insalata Mista",
 		"category":"Salate"
 	},
 	{
+		"id": 19,
 		"name":"Insalata Pollo",
 		"price": 8.50,
 		"image_url": "@mipmap/Insalata Pollo",
 		"category":"Salate"
 	},
 	{
+		"id": 20,
 		"name":"Insalata Pecorino",
 		"price": 7,
 		"image_url": "@mipmap/Insalata_Pecorino",
@@ -127,90 +148,105 @@
 	},
 
 	{
+		"id": 21,
 		"name":"Curry Wurst",
 		"price": 3.50,
 		"image_url": "@mipmap/Curry_Wurst",
 		"category":"Finger Food"
 	},
 	{
+		"id": 22,
 		"name":"Chicken wings",
 		"price": 4.90,
 		"image_url": "@mipmap/Chicken_wings",
 		"category":"Finger Food"
 	},
 	{
+		"id": 23,
 		"name":"Pommes frites",
 		"price": 3.50,
 		"image_url": "@mipmap/Pommes_frites",
 		"category":"Finger Food"
 	},
 	{
+		"id": 24,
 		"name":"Süsskartoffel",
 		"price": 3.40,
 		"image_url": "@mipmap/Süsskartoffel",
 		"category":"Finger Food"
 	},
 	{
+		"id": 25,
 		"name":"Zwiebelringe",
 		"price": 3,
 		"image_url": "@mipmap/Zwiebelringe",
 		"category":"Finger Food"
 	},
 	{
+		"id": 26,
 		"name":"Türkische mocca",
 		"price": 2.50,
 		"image_url": "@mipmap/Türkische_mocca",
 		"category":"Heisse Getränke"
 	},
 	{
+		"id": 27,
 		"name":"Cafe crema",
 		"price": 2,
 		"image_url": "@mipmap/Cafe_crema",
 		"category":"Heisse Getränke"
 	},
 	{
+		"id": 28,
 		"name":"Espresso",
 		"price": 1.80,
 		"image_url": "@mipmap/Espresso",
 		"category":"Heisse Getränke"
 	},
 	{
+		"id": 29,
 		"name":"Cappuccino",
 		"price": 2.50,
 		"image_url": "@mipmap/Cappuccino",
 		"category":"Heisse Getränke"
 	},
 	{
+		"id": 30,
 		"name":"Latte macchiato",
 		"price": 2.90,
 		"image_url": "@mipmap/Latte_macchiato",
 		"category":"Heisse Getränke"
 	},
 	{
+		"id": 31,
 		"name":"Coco-cola, Fanta, sprite",
 		"price": 2.30,
 		"image_url": "@mipmap/Botels",
 		"category":"Alkoholfrei Getränke"
 	},
 	{
+		"id": 32,
 		"name":"Fritz lemon",
 		"price": 3,
 		"image_url": "@mipmap/Fritz_lemon",
 		"category":"Alkoholfrei Getränke"
 	},
 	{
+		"id": 33,
 		"name":"Club Mate",
 		"price": 3,
 		"image_url": "@mipmap/Club_Mate",
 		"category":"Alkoholfrei Getränke"
 	},
 	{
+		"id": 34,
 		"name":"Mineralwasser Still",
 		"price": 2,
 		"image_url": "@mipmap/Mineralwasser_Still",
 		"category":"Alkoholfrei Getränke"
 	},
 	{
+		"id": 35,
 		"name":"Ayran",
 		"price": 2,
 		"image_url": "@mipmap/Ayran",
