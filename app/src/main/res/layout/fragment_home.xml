@@ -1,63 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="clip_horizontal|center|center_horizontal"
+    android:backgroundTint="@color/secondary"
     tools:context=".ui.home.HomeFragment">
 
 
     <LinearLayout
-        android:id="@+id/searchView"
-        android:layout_width="365dp"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/input"
-
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        >
-
-        <com.google.android.material.textfield.TextInputLayout
-
-            app:layout_wrapBehaviorInParent="included"
-            android:hint="@string/search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:placeholderText="Enter the name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/search_text"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/input"
-                android:textColor="@color/secondary"
-
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="364dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/searchView"
+        android:id="@+id/home_layout"
+        android:layout_width="352dp"
+        android:layout_height="721dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/cards" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="338dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/profile_input_design"
+            android:ems="8"
+            android:hint="Search"
+            android:textColor="@color/secondary"
+            android:textColorHint="@color/bg_grey" />
+
+        <Spinner
+            android:id="@+id/mySpinner"
+            android:layout_width="341dp"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            app:cardCornerRadius="20dp"
+            android:contentDescription="@string/category"
+            android:spinnerMode="dropdown"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="346dp"
+            android:layout_height="530dp"
+            android:layout_below="@id/mySpinner"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
+            tools:listitem="@layout/cards"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
