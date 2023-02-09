@@ -1,10 +1,6 @@
 
 package com.example.myapplication.ui.home
 
-import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,21 +14,22 @@ import com.example.myapplication.R
 import com.example.myapplication.itemClass
 import kotlinx.android.synthetic.main.fragment_home.*
 
-import java.net.URL
-import java.io.File
 import android.content.Context
 
-import androidx.appcompat.app.AppCompatActivity
-import java.io.IOException
-import java.io.InputStream
-import android.content.res.AssetManager
-import org.json.JSONException
-import org.json.JSONObject
+import com.example.myapplication.ui.orders.OrdersViewModel
 
 class FoodItemsAdapter(private val context: HomeFragment, private val itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<FoodItemsAdapter.FoodItemsViewHolder>() {
 
     var list: ArrayList<itemClass> = itemClass
+    var cart: ArrayList<itemClass> = ArrayList()
+
+    var ordersViewModel: OrdersViewModel = OrdersViewModel()
+    private val sharedPref = context.activity?.getPreferences(Context.MODE_PRIVATE)
+
+
+
+
     var selectionTracker: Array<Long>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemsViewHolder {
@@ -43,6 +40,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
 
     override fun getItemCount() = list.size
     override fun onBindViewHolder(holder: FoodItemsViewHolder, position: Int) {
+        val item = list[position]
         holder.item_name.text = list.get(position).title
         holder.price.text = "£" + list.get(position).price.toString()
         val image = list[position].imageResource
@@ -51,17 +49,43 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
             placeholder(R.drawable.loading_background)
 
         }
-            holder.munisBtn.setOnClickListener {
-            if(Integer.parseInt(holder.quantity.text.toString())>0) {
-                val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1;
+        val itemQuantity = sharedPref?.getInt("${item.title}_quantity", 0) ?: 0
+        holder.quantity.text = itemQuantity.toString()
+        holder.munisBtn.setOnClickListener {
+            if (itemQuantity > 0) {
+                val count: Int = itemQuantity - 1
                 holder.quantity.setText(count.toString())
+                sharedPref?.edit()?.putInt("${item.title}_quantity", count)?.apply()
+                if (count == 0) {
+                    removeItemFromCart(list[position])
+                }
+                ordersViewModel.updateCart(cart)
             }
         }
         holder.plus.setOnClickListener {
+            val count: Int = itemQuantity + 1
+            holder.quantity.setText(count.toString())
+            sharedPref?.edit()?.putInt("${item.title}_quantity", count)?.apply()
+            if (count > 0) {
+                addItemToCart(list[position])
+            }
+            ordersViewModel.updateCart(cart)
+        }
 
-                val count: Int = Integer.parseInt(holder.quantity.text.toString()) + 1;
-                holder.quantity.setText(count.toString())
+    }
+    private fun addItemToCart(item: itemClass) {
+        if (!cart.contains(item)) {
+            cart.add(item)
+            ordersViewModel.updateCart(cart)
+            notifyDataSetChanged()
+        }
+    }
 
+    private fun removeItemFromCart(item: itemClass) {
+        if (cart.contains(item)) {
+            cart.remove(item)
+            ordersViewModel.updateCart(cart)
+            notifyDataSetChanged()
         }
     }
 
@@ -81,6 +105,5 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
     }
 
 }
-
 
 

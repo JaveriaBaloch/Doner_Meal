@@ -15,6 +15,9 @@ import com.example.myapplication.itemClass
 
 
 class HomeFragment : Fragment() {
+    //public val ordersViewModel: OrdersViewModel by activityViewModels()
+    //private val orderItems = mutableListOf<OrderItem>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
