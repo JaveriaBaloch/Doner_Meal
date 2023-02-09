@@ -33,7 +33,7 @@ class OrdersAdapter(private val context: OrdersFragment, private val orderItem: 
         holder.price1.text = "£" + list.get(position).price.toString()
         Log.d("OrdersViewModel", "cart size: ${ holder.price1.textSize}")
 
-        holder.quantity1.text = list.get(position).quantity.toString()
+        //holder.quantity1.text = list.get(position).quantity.toString()
         Log.d("OrdersViewModel", "cart size: ${ holder.quantity1.textSize}")
         Log.d("OrdersViewModel", "item: $item")
         Log.d("OrdersViewModel", "list size: ${list.size}")
