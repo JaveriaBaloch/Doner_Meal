@@ -32,7 +32,7 @@ import org.json.JSONObject
 class FoodItemsAdapter(private val context: HomeFragment, private val itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<FoodItemsAdapter.FoodItemsViewHolder>() {
 
-    var list: ArrayList<itemClass> = itemClass
+    private var list: ArrayList<itemClass> = itemClass
     var selectionTracker: Array<Long>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemsViewHolder {
@@ -43,7 +43,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
 
     override fun getItemCount() = list.size
     override fun onBindViewHolder(holder: FoodItemsViewHolder, position: Int) {
-        holder.item_name.text = list.get(position).title
+        holder.itemname.text = list.get(position).title
         holder.price.text = "£" + list.get(position).price.toString()
         val image = list[position].imageResource
         holder.item_image.load(image) {
@@ -53,7 +53,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
         }
             holder.munisBtn.setOnClickListener {
             if(Integer.parseInt(holder.quantity.text.toString())>0) {
-                val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1;
+                val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1
                 holder.quantity.setText(count.toString())
             }
         }
@@ -69,7 +69,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
 
 
     class FoodItemsViewHolder(itemView: View) : ViewHolder(itemView) {
-        var item_name = itemView.findViewById<TextView>(R.id.itemTitle);
+        var itemname = itemView.findViewById<TextView>(R.id.itemTitle);
         var price = itemView.findViewById<TextView>(R.id.price);
         var munisBtn = itemView.findViewById<Button>(R.id.minus);
         var quantity = itemView.findViewById<TextView>(R.id.quantity);
