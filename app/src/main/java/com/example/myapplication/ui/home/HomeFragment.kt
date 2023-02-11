@@ -1,25 +1,47 @@
 package com.example.myapplication.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.itemClass
+import com.example.myapplication.ui.cart.CartFragment
+import com.example.myapplication.ui.cart.CartViewModel
+import com.example.myapplication.ui.orders.CartItem
+import com.example.myapplication.ui.orders.OrdersViewModel
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ItemQuantityChangeListener {
     var category:Array<String> = arrayOf("All", "Döner Gerichte", "Omlette", "Pizza", "Vegetarische Gerichte", "Salate",
     "Finger Food","Heisse Getränke","Alkoholfrei Getränke")
+    var quantities = mutableMapOf<Int, Int>()
+    val cartItems = arrayListOf<itemClass>()
+    private lateinit var cartViewModel: CartViewModel
+    private var cart: ArrayList<CartItem> = ArrayList()
+    private lateinit var cartViewFragment: CartFragment
+
+
+
+
+
+    private lateinit var adapter: FoodItemsAdapter
+
+
+
+
 
 
     override fun onCreateView(
@@ -34,6 +56,8 @@ class HomeFragment : Fragment() {
 
         val recyclerView: RecyclerView
         recyclerView = view.findViewById(R.id.recycler)
+
+
         recyclerView.layoutManager = LinearLayoutManager(context)
         val list = arrayListOf<itemClass>()
         for (menuItem in items) {
@@ -41,6 +65,8 @@ class HomeFragment : Fragment() {
         }
         val t = this
         val adapter = FoodItemsAdapter(this, list)
+        this.adapter = adapter
+        adapter.listener = this
         recyclerView.adapter = adapter
         val spinner: Spinner = view.findViewById(R.id.mySpinner)
         val aa = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_spinner_dropdown_item,category) }
@@ -72,6 +98,34 @@ class HomeFragment : Fragment() {
             }
 
         }
+
+        view.add_to_cart_button.setOnClickListener(View.OnClickListener  {
+            updateCart()
+            if (cart.size > 0) {
+                val bundle = Bundle()
+                bundle.putSerializable("cart", cart)
+                val cartFragment = CartFragment()
+                cartFragment.arguments = bundle
+                Log.d("HomeFragment", "cart size before passing to CartFragment: ${cart.size}")
+
+                // Replace the current fragment with the CartFragment
+                val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
+                fragmentTransaction?.replace(R.id.content, cartFragment)
+                fragmentTransaction?.addToBackStack(null)
+                fragmentTransaction?.commit()
+
+
+
+            } else {
+                // Show a message to the user that the cart is empty
+                Toast.makeText(activity, "Cart is empty", Toast.LENGTH_SHORT).show()
+            }
+            })
+
+
+
+
+
         var editText: EditText = view.findViewById(R.id.search_text)
           editText.addTextChangedListener(object : TextWatcher {
               val check = arrayListOf<itemClass>()
@@ -99,5 +153,41 @@ class HomeFragment : Fragment() {
         })
         return view
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // ...
+        cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
+    }
+
+
+    private fun updateCart() {
+
+
+        cart.clear()
+        for (item in adapter.list) {
+            val itemQuantity = adapter.sharedPref?.getInt("${item.title}_quantity", 0) ?: 0
+            //cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
+
+            if (itemQuantity > 0) {
+                val cartItem = CartItem(item.title, item.price, item.imageResource, itemQuantity)
+                cartViewModel.addOrder(cartItem)
+                Log.d("OrdersViewModel", "asdfsdf: $cartItem")
+                cart.add(cartItem)
+            }
+        }
+    }
+    override fun onQuantityChanged(position: Int, quantity: Int) {
+        //val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val item = adapter.list[position]
+        adapter.sharedPref?.edit()?.putInt("${item.title}_quantity", quantity)?.apply()
+        cartViewModel.updateCart(item.title, item.price, item.imageResource, quantity)
+        updateCart()
+
+    }
+
+
+
+
+
 
 }

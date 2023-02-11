@@ -20,5 +20,9 @@
             android:id="@+id/signout"
             android:icon="@drawable/ic_baseline_logout_24"
             android:title="Signout" />
+        <item
+            android:id="@+id/cart"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="Cart" />
     </group>
 </menu>

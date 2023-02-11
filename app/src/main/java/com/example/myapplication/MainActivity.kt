@@ -2,14 +2,18 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.ui.cart.CartFragment
+import com.example.myapplication.ui.cart.CartViewModel
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
@@ -47,10 +51,26 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // Replace this line with the code to open the CartFragment
+                //val cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
+
+                val fragment = CartFragment()
+
+                supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
