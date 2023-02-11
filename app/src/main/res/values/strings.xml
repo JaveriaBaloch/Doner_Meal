@@ -8,4 +8,6 @@
     <string name="search">search</string>
     <string name="searchtxt">Search</string>
     <string name="category">All</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>
