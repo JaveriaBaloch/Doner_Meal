@@ -115,8 +115,7 @@ class Register : AppCompatActivity() {
                        user["password"] = password
                        user["address"] = address
                        user["phone"] = phone
-                       val documentReference =  FirebaseFirestore.getInstance().collection("users")
-                       documentReference.add(user).addOnSuccessListener {
+                       FirebaseFirestore.getInstance().collection("users").document(userID).set(user).addOnSuccessListener {
                        }.addOnFailureListener {
                            Log.d("TAG","Failed")
                        }
