@@ -1,37 +1,48 @@
 package com.example.myapplication.ui.signout
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.MainActivity
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSignoutBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class SignOutFragment : Fragment() {
 
     private var _binding: FragmentSignoutBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var firestore: FirebaseFirestore
+    lateinit var fAuth : FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SignOutViewModel::class.java)
-
-        _binding = FragmentSignoutBinding.inflate(inflater, container, false)
+        val view = inflater.inflate(R.layout.fragment_signout, container, false)
         val root: View = binding.root
+        fAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        val btn = view.findViewById<Button>(R.id.logoutButton)
+        btn.setOnClickListener {
 
-        val textView: TextView = binding.textSignout
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            if(fAuth.currentUser!=null){
+               fAuth.signOut()
+                requireActivity().run{
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    finish()
+                }
+
+            }
         }
+
         return root
     }
 

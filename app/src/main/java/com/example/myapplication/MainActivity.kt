@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,18 +14,39 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
 class MainActivity : AppCompatActivity() {
+    lateinit var firestore: FirebaseFirestore
+    var userID: String = ""
+    lateinit var fAuth : FirebaseAuth
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        setDrawer()
+        if (fAuth.currentUser!=null){
+            setDrawer()
+        }else{
+            signup()
+        }
+
+    }
+    private fun signup(){
+        setContentView(R.layout.activity_splash_screen)
+        Handler().postDelayed({ /* Create an Intent that will start the Menu-Activity. */
+            val register = Intent(this, Register::class.java)
+            startActivity(register)
+            finish()
+        }, 3000)
     }
 
-
     private fun setDrawer(){
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
