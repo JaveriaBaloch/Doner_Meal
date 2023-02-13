@@ -1,5 +1,5 @@
 
-package com.example.myapplication
+package com.example.myapplication.ui.home
 
 import android.content.Context
 import org.json.JSONException

@@ -1,6 +1,10 @@
 package com.example.myapplication
 
+
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -23,13 +27,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var fAuth : FirebaseAuth
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
+    var sharedPreference: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+        sharedPreference= getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
         super.onCreate(savedInstanceState)
         fAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        if (fAuth.currentUser!=null){
+        if (sharedPreference?.getString("name","empty") !="empty"){
             setDrawer()
         }else{
             signup()
@@ -38,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun signup(){
         setContentView(R.layout.activity_splash_screen)
-        Handler().postDelayed({ /* Create an Intent that will start the Menu-Activity. */
+        Handler().postDelayed({
             val register = Intent(this, Register::class.java)
             startActivity(register)
             finish()

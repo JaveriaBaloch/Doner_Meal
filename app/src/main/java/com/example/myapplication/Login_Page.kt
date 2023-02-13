@@ -1,16 +1,22 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+
+
 import com.google.firebase.auth.FirebaseAuth
+
+
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_register.*
 
 class Login_Page : AppCompatActivity() {
     lateinit var useremail: EditText
@@ -21,11 +27,13 @@ class Login_Page : AppCompatActivity() {
     lateinit var firestore: FirebaseFirestore
     var userID: String = ""
     lateinit var fAuth : FirebaseAuth
+    var sharedPreference: SharedPreferences? = null
+    var editor: SharedPreferences.Editor? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-
-
+        sharedPreference = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        editor = sharedPreference?.edit()
         useremail = findViewById(R.id.useremailLogin)
         userpassword = findViewById(R.id.userPasswordLogin)
         loginButton = findViewById(R.id.loginbutton)
@@ -34,7 +42,7 @@ class Login_Page : AppCompatActivity() {
         fAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        if (fAuth.currentUser!=null){
+        if (sharedPreference?.getString("name","default")!="default"){
             val mainActivity = Intent(this, MainActivity::class.java)
             startActivity(mainActivity)
             finish()
@@ -50,20 +58,39 @@ class Login_Page : AppCompatActivity() {
             val email = useremail.text.toString().trim()
             val password = userpassword.text.toString()
             if(TextUtils.isEmpty(email)){
-                useremailRegister.error = "Required"
+                useremail.error = "Required"
                 return@setOnClickListener
             }
             if(TextUtils.isEmpty(password)){
-                userPasswordRegister.error = "Required"
+                userpassword.error = "Required"
                 return@setOnClickListener
             }
-            fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
+            fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener {task ->
                 if(task.isSuccessful){
-                    val intent= Intent(this,MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val user = fAuth.uid.toString()
+                    editor?.putString("id",user)
+                     firestore.collection("users").whereEqualTo("id",user)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                        documents.forEach{userInfo->
+
+                            editor?.putString("name", userInfo.getString("name"))
+                            editor?.putString("address", userInfo.getString("address"))
+
+                            editor?.putString("phone", userInfo.getString("phone"))
+
+                        }
+                            editor?.apply()
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("TAG", "Error getting documents: ", exception)
+                        }
+
                 }
-            }.addOnFailureListener { exception ->
+                val intent= Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                }.addOnFailureListener { exception ->
                 Toast.makeText(applicationContext,exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
 

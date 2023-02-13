@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.SignInMethodQueryResult
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_register.*
 
 class Register : AppCompatActivity() {
     lateinit var username:EditText
@@ -28,11 +29,16 @@ class Register : AppCompatActivity() {
     lateinit var firestore: FirebaseFirestore
     var userID: String = ""
     lateinit var fAuth :FirebaseAuth
+    var sharedPreference: SharedPreferences? = null
+    var editor: SharedPreferences.Editor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        sharedPreference = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        editor = sharedPreference?.edit()
         username = findViewById(R.id.usernameRegister)
+
         useremail =findViewById(R.id.useremailRegister)
         userpassword = findViewById(R.id.userPasswordRegister)
         userConfirmPassword = findViewById(R.id.confirmPasswordRegister)
@@ -43,7 +49,7 @@ class Register : AppCompatActivity() {
         fAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        if (fAuth.currentUser!=null){
+        if (sharedPreference?.getString("name","empty") !="empty"){
             val mainActivity = Intent(this, MainActivity::class.java)
             startActivity(mainActivity)
             finish()
@@ -56,39 +62,38 @@ class Register : AppCompatActivity() {
 
         }
         btnRegister.setOnClickListener {
-            val name = usernameRegister.text.toString()
-            val email = useremailRegister.text.toString()
-            val password = userPasswordRegister.text.toString()
-            val address = userAddressRegister.text.toString()
-            val phone = userPhoneRegister.text.toString()
+            val name = username.text.toString()
+            val email = useremail.text.toString()
+            val password = userpassword.text.toString()
+            val address = useraddress.text.toString()
+            val phone = userphone.text.toString()
             val confirmPassword = userConfirmPassword.text.toString()
             if(TextUtils.isEmpty(email)){
-                useremailRegister.error = "Required"
+                useremail.error = "Required"
                 return@setOnClickListener
                 }
             if(TextUtils.isEmpty(name)){
-                usernameRegister.error = "Required"
+                username.error = "Required"
                 return@setOnClickListener
             }
             if(TextUtils.isEmpty(password)){
-                userPasswordRegister.error = "Required"
+                userpassword.error = "Required"
                 return@setOnClickListener
             }
             if(password.length<8){
-                userPasswordRegister.error = "Password should be 8 characters"
+                userpassword.error = "Password should be 8 characters"
                 return@setOnClickListener
             }
             if(TextUtils.isEmpty(address)){
-                userAddressRegister.error = "Required"
+                useraddress.error = "Required"
                 return@setOnClickListener
             }
             if(TextUtils.isEmpty(phone)){
-                userPhoneRegister.error = "Required"
+                userphone.error = "Required"
                 return@setOnClickListener
             }
             if((confirmPassword != password)){
-                Toast.makeText(applicationContext,"Password is not matching!",Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+                Toast.makeText(applicationContext,"Passwords are not match",Toast.LENGTH_SHORT).show()
             }
 
             if(!userExists(email)){
@@ -115,7 +120,12 @@ class Register : AppCompatActivity() {
                        user["password"] = password
                        user["address"] = address
                        user["phone"] = phone
-                       FirebaseFirestore.getInstance().collection("users").document(userID).set(user).addOnSuccessListener {
+                       editor?.putString("id",userID)
+                       editor?.putString("name",name)
+                       editor?.putString("address",address)
+                       editor?.putString("phone",phone)
+                       editor?.apply()
+                       FirebaseFirestore.getInstance().collection("users").document(userID).set(user).addOnSuccessListener  {
                        }.addOnFailureListener {
                            Log.d("TAG","Failed")
                        }
@@ -132,7 +142,7 @@ class Register : AppCompatActivity() {
 
        }
         fun userExists(email: String):Boolean{
-            var exists = false
+            var exists:Boolean = false
             fAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task: Task<SignInMethodQueryResult>->
                 val check: Boolean = task.result.signInMethods?.isEmpty() == true
                 if(check)

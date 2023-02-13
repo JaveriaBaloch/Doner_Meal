@@ -1,10 +1,6 @@
 
 package com.example.myapplication.ui.home
 
-import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,19 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.itemClass
-import kotlinx.android.synthetic.main.fragment_home.*
-
-import java.net.URL
-import java.io.File
-import android.content.Context
-
-import androidx.appcompat.app.AppCompatActivity
-import java.io.IOException
-import java.io.InputStream
-import android.content.res.AssetManager
-import org.json.JSONException
-import org.json.JSONObject
 
 class FoodItemsAdapter(private val context: HomeFragment, private val itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<FoodItemsAdapter.FoodItemsViewHolder>() {
@@ -54,7 +37,7 @@ class FoodItemsAdapter(private val context: HomeFragment, private val itemClass:
             holder.munisBtn.setOnClickListener {
             if(Integer.parseInt(holder.quantity.text.toString())>0) {
                 val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1
-                holder.quantity.setText(count.toString())
+                holder.quantity.text = count.toString()
             }
         }
         holder.plus.setOnClickListener {

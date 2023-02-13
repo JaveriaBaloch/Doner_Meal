@@ -52,20 +52,6 @@
             />
 
         <EditText
-            android:id="@+id/useremail"
-            android:layout_width="match_parent"
-            android:textColorHint="@color/bg_grey"
-            android:layout_marginTop="10dp"
-
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:layout_height="50dp"
-            android:ems="8"
-            android:background="@drawable/profile_input_design"
-            android:textColor="@color/secondary"/>
-
-
-        <EditText
             android:id="@+id/userphone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
