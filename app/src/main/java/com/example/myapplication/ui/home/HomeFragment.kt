@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
             }
 
         }
-        val editText: EditText = view.findViewById(R.id.search_text)
+        val editText:TextView = view.findViewById(R.id.search_text)
           editText.addTextChangedListener(object : TextWatcher {
               val check = arrayListOf<itemClass>()
               override fun afterTextChanged(s: Editable) {
