@@ -1,5 +1,4 @@
 package com.example.myapplication.ui.profile
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
 class ProfileFragment : Fragment() {
-
     var sharedPreference: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
     lateinit var firestore: FirebaseFirestore
@@ -50,7 +48,7 @@ class ProfileFragment : Fragment() {
             update["name"] = name.text.toString()
             update["address"] = address.text.toString()
             update["phone"] = phone.text.toString()
-            FirebaseFirestore.getInstance().collection("users").document(id).set(update, SetOptions.merge()).addOnSuccessListener  {
+            FirebaseFirestore.getInstance().collection("users").document(id).set(update, SetOptions.merge()).addOnCompleteListener {
                 Toast.makeText(context,"Updates are saved successfully!",Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(context,"Updates are not saved",Toast.LENGTH_SHORT).show()
