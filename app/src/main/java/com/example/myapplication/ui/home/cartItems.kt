@@ -1,19 +1,20 @@
-
 package com.example.myapplication.ui.home
-
 import android.content.Context
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
 
 
-data  class itemClass(val title:String, val imageResource: String, val price: Double, val category:String) :
+data  class cartItems(
+    val title:String, val imageResource: String, val price: Double, val category:String,
+    val quantity: String
+) :
     Serializable {
 
     companion object {
-        fun getMenuItems(filename: String, context: Context): ArrayList<itemClass> {
+        fun getMenuItems(filename: String, context: Context): ArrayList<cartItems> {
             //create ArrayList of Book objects
-            val menuItemList = ArrayList<itemClass>()
+            val menuItemList = ArrayList<cartItems>()
 
             try {
                 //read json file
@@ -27,11 +28,13 @@ data  class itemClass(val title:String, val imageResource: String, val price: Do
 
                 for (i in 0 until menuItems.length()) {
                     menuItemList.add(
-                        itemClass(
-                        menuItems.getJSONObject(i).getString("name"),
-                        menuItems.getJSONObject(i).getString("image_url"),
-                        menuItems.getJSONObject(i).getDouble("price"),
-                        menuItems.getJSONObject(i).getString("category"))
+                        cartItems(
+                            menuItems.getJSONObject(i).getString("name"),
+                            menuItems.getJSONObject(i).getString("image_url"),
+                            menuItems.getJSONObject(i).getDouble("price"),
+                            menuItems.getJSONObject(i).getString("category"),
+                            menuItems.getJSONObject(i).getString("quantity")
+                        )
                     )
                 }
 
@@ -44,4 +47,5 @@ data  class itemClass(val title:String, val imageResource: String, val price: Do
         }
     }
 }
+
 
