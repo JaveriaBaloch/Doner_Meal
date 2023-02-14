@@ -124,6 +124,7 @@ class Register : AppCompatActivity() {
                        editor?.putString("name",name)
                        editor?.putString("address",address)
                        editor?.putString("phone",phone)
+                       editor?.putString("email",email)
                        editor?.apply()
                        FirebaseFirestore.getInstance().collection("users").document(userID).set(user).addOnSuccessListener  {
                        }.addOnFailureListener {

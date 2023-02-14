@@ -68,15 +68,15 @@ class Login_Page : AppCompatActivity() {
             fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener {task ->
                 if(task.isSuccessful){
                     val user = fAuth.uid.toString()
-                    editor?.putString("id",user)
+
                      firestore.collection("users").whereEqualTo("id",user)
                         .get()
                         .addOnSuccessListener { documents ->
                         documents.forEach{userInfo->
-
+                            editor?.putString("id",user)
                             editor?.putString("name", userInfo.getString("name"))
                             editor?.putString("address", userInfo.getString("address"))
-
+                            editor?.putString("email", userInfo.getString("email"))
                             editor?.putString("phone", userInfo.getString("phone"))
 
                         }
