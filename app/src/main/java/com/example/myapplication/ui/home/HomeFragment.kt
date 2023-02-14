@@ -1,29 +1,28 @@
 package com.example.myapplication.ui.home
 
-import android.annotation.SuppressLint
+
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.itemClass
 
 
 class HomeFragment : Fragment() {
     var category:Array<String> = arrayOf("All", "Döner Gerichte", "Omlette", "Pizza", "Vegetarische Gerichte", "Salate",
     "Finger Food","Heisse Getränke","Alkoholfrei Getränke")
 
-
-    @SuppressLint("SuspiciousIndentation")
+    var sharedPreference: SharedPreferences? = null
+    var editor: SharedPreferences.Editor? = null
+    val user: MutableMap<String, Any> = HashMap()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +30,6 @@ class HomeFragment : Fragment() {
     ):View {
 
         val items = itemClass.getMenuItems("menu.json", requireContext())
-        println(itemClass)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler)
@@ -41,7 +39,7 @@ class HomeFragment : Fragment() {
             list.add(menuItem)
         }
         val t = this
-        val adapter = FoodItemsAdapter(this, list)
+        val adapter = FoodItemsAdapter(list)
         recyclerView.adapter = adapter
         val spinner: Spinner = view.findViewById(R.id.mySpinner)
         val aa = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_dropdown_item,category) }
@@ -51,7 +49,7 @@ class HomeFragment : Fragment() {
 
                 val check = arrayListOf<itemClass>()
                 if(category[p2].equals("All", ignoreCase = true)){
-                    val adapter = FoodItemsAdapter(t, list)
+                    val adapter = FoodItemsAdapter(list)
                     recyclerView.adapter = adapter
                 }
                 else {
@@ -62,18 +60,18 @@ class HomeFragment : Fragment() {
                         }
 
                     }
-                    val adapterShow = FoodItemsAdapter(t, check)
+                    val adapterShow = FoodItemsAdapter(check)
                     recyclerView.adapter = adapterShow
                 }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                val adapter = FoodItemsAdapter(t, list)
+                val adapter = FoodItemsAdapter(list)
                 recyclerView.adapter = adapter
             }
 
         }
-        val editText: EditText = view.findViewById(R.id.search_text)
+        val editText:TextView = view.findViewById(R.id.search_text)
           editText.addTextChangedListener(object : TextWatcher {
               val check = arrayListOf<itemClass>()
               override fun afterTextChanged(s: Editable) {
@@ -91,13 +89,19 @@ class HomeFragment : Fragment() {
                 for (menuItem in items) {
                     if (menuItem.title.contains(editText.text.toString(),ignoreCase = true)){
                         check.add(menuItem)
-                        val adapter = FoodItemsAdapter(t, check)
+                        val adapter = FoodItemsAdapter(check)
                         recyclerView.adapter = adapter
                     }
 
                 }
             }
         })
+        val btn = view.findViewById<Button>(R.id.go_to_cart)
+        btn.setOnClickListener{
+
+                findNavController(view).navigate(R.id.action_to_cart)
+
+        }
         return view
     }
 

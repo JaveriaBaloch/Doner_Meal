@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="clip_horizontal|center|center_horizontal"
@@ -13,8 +12,10 @@
     <LinearLayout
         android:id="@+id/home_layout"
         android:layout_width="352dp"
-        android:layout_height="721dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,5 +52,15 @@
             tools:listitem="@layout/cards"
             app:layout_constraintEnd_toEndOf="parent"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/go_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Carts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

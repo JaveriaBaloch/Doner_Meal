@@ -1,5 +1,5 @@
 
-package com.example.myapplication
+package com.example.myapplication.ui.home
 
 import android.content.Context
 import org.json.JSONException
@@ -7,7 +7,7 @@ import org.json.JSONObject
 import java.io.Serializable
 
 
-data  class itemClass( val title:String, val imageResource: String,  val price:Double, val category:String) :
+data  class itemClass(val title:String, val imageResource: String, val price: Double, val category:String) :
     Serializable {
 
     companion object {
