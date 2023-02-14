@@ -37,22 +37,23 @@ class MainActivity : AppCompatActivity() {
         fAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-
         if (sharedPreference?.getString("name","empty") !="empty"){
+            setContentView(R.layout.activity_splash_screen)
+            Handler().postDelayed({
             setDrawer()
-
+            }, 2000)
         }else{
             signup()
         }
-
     }
+
     private fun signup(){
         setContentView(R.layout.activity_splash_screen)
         Handler().postDelayed({
             val register = Intent(this, Register::class.java)
             startActivity(register)
             finish()
-        }, 3000)
+        }, 2000)
     }
 
     private fun setDrawer(){
@@ -62,9 +63,11 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.appBarMain.complainButton.setOnClickListener { view ->
+            val writeComplain = Intent(this, ComplainsActivity::class.java)
+            startActivity(writeComplain)
+            finish()
+
         }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
