@@ -19,6 +19,11 @@ import com.google.gson.Gson
 
 class CartItemsAdapter(itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
+    var onCartItemRemovedListener: OnCartItemRemovedListener? = null
+
+    interface OnCartItemRemovedListener{
+        fun onRemoved()
+    }
     private var list: ArrayList<itemClass> = itemClass
     var selectionTracker: Array<Long>? = null
     var sharedPreference: SharedPreferences? = null
@@ -31,6 +36,7 @@ class CartItemsAdapter(itemClass: ArrayList<itemClass>):
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
         sharedPreference = parent.getContext().getSharedPreferences("cart", Context.MODE_PRIVATE)
         editor = sharedPreference?.edit()
+
         return CartItemsViewHolder(itemView)
     }
 

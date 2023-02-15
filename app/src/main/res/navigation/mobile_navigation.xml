@@ -19,6 +19,20 @@
         android:name="com.example.myapplication.ui.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_to_order"
+            app:destination="@id/checkout" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkout"
+        android:name="com.example.myapplication.ui.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout">
+
+        <action
+            android:id="@+id/action_to_home"
+            app:destination="@id/home" />
+
     </fragment>
     <fragment
         android:id="@+id/orders"

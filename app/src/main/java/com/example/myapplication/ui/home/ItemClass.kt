@@ -7,7 +7,7 @@ import org.json.JSONObject
 import java.io.Serializable
 
 
-data  class itemClass(val title:String, val imageResource: String, val price: Double, val category:String) :
+data  class itemClass(val title:String = "", val imageResource: String = "" , val price: Double = 0.00, val category:String = "")  :
     Serializable {
 
     companion object {
