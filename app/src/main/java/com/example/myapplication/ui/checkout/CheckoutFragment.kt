@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CheckoutFragment: Fragment() {
@@ -83,15 +86,38 @@ class CheckoutFragment: Fragment() {
 
 
         confirmbtn.setOnClickListener {
+            // Initialize total value to 0
+            var totalValue = 0.0
+
+            // Loop through the selected items to calculate the total value
+            for (item in list) {
+                val quantity = sharedPreference?.getInt(item.title, 0) ?: 0
+                val itemValue = item.price * quantity
+                totalValue += itemValue
+            }
+
             val fullname = fname.text.toString()
             val phone = phone_.text.toString()
             val email = email.text.toString()
             val address = address.text.toString()
             val additionalnotes = notes.text.toString()
+            val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+            val checkoutMap = hashMapOf(
+                "cartItems" to list,
+                "currentDate" to currentDate,
+                "totalValue" to totalValue,
+                "fullname" to fullname,
+                "phone" to phone,
+                "email" to email,
+                "address" to address,
+                "additionalnotes" to additionalnotes
+            )
 
 
 
-            val checkoutuser = UserCheckout(fullname, phone, email, address, additionalnotes, list)
+
+            val checkoutuser = UserCheckout(fullname, phone, email, address, additionalnotes, list, currentDate, totalValue)
 
             Log.d("CheckoutFragment", "fullname: $fullname")
             Log.d("CheckoutFragment", "phone: $phone")
@@ -99,8 +125,12 @@ class CheckoutFragment: Fragment() {
             Log.d("CheckoutFragment", "address: $address")
             Log.d("CheckoutFragment", "additionalnotes: $additionalnotes")
             Log.d("CheckoutFragment", "cartItems: ${list}")
+            Log.d("CheckoutFragment", "currentDate: ${currentDate}")
+            Log.d("CheckoutFragment", "totalValue: ${totalValue}")
 
-            database.child(fullname).setValue(checkoutuser).addOnSuccessListener {
+
+
+            database.child(fullname).setValue(checkoutMap).addOnSuccessListener {
                 Toast.makeText(requireContext(), "Checkout Successful", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), "Checkout Fail", Toast.LENGTH_SHORT).show()

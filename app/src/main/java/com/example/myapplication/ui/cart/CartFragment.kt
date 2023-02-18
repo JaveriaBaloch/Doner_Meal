@@ -3,24 +3,17 @@ package com.example.myapplication.ui.cart
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.ui.checkout.CheckoutViewModel
 import com.example.myapplication.ui.home.cartItems
 import com.example.myapplication.ui.home.itemClass
-import org.json.JSONArray
 import org.json.JSONObject
 
 /*class SharedViewModel : ViewModel() {

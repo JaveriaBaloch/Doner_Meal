@@ -34,14 +34,40 @@ class OrdersFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         val query: Query = database.orderByKey()
         val ordersList = ArrayList<itemClass>()
-        val adapter = OrdersAdapter(ordersList)
+        val ordersHeadingList = ArrayList<UserCheckout>()
+
+        val adapter = OrdersAdapter(ordersList, ordersHeadingList)
         recyclerView.adapter = adapter
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                 for (orderSnapshot in dataSnapshot.children) {
                     val order = orderSnapshot.getValue(UserCheckout::class.java)
-                    order?.cartItems?.let { cartItems ->
-                        ordersList.addAll(cartItems)
+                    if (order != null) {
+                        if (order.currentDate != null && order.totalValue != null) {
+                            // Check if an item with the same currentDate already exists in the heading list
+                            val existingHeading = ordersHeadingList.find { it.currentDate == order.currentDate }
+                            if (existingHeading != null) {
+                                // Update the totalValue of the existing item
+                                existingHeading.totalValue = existingHeading.totalValue?.plus(order.totalValue!!)
+                                Log.d("CheckoutFragment", "fullname: $existingHeading")
+
+                            } else {
+                                // Add a new item to the heading list
+                                val heading = UserCheckout(currentDate = order.currentDate, totalValue = order.totalValue)
+                                ordersHeadingList.add(heading)
+                            }
+                        }
+
+                        //Log.d("CheckoutFragment", "heading: $heading")
+
+                        //ordersHeadingList.add(heading)
+
+                        order.cartItems?.let { cartItems ->
+                            for (item in cartItems) {
+                                ordersList.add(item)
+                            }
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged()

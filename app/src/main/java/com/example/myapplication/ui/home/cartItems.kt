@@ -5,7 +5,7 @@ import org.json.JSONObject
 import java.io.Serializable
 
 
-data  class cartItems(
+data  class cartItems (
     val title:String, val imageResource: String, val price: Double, val category:String,
     val quantity: String
 ) :

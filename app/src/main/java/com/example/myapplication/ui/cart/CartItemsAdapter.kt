@@ -46,7 +46,7 @@ class CartItemsAdapter(itemClass: ArrayList<itemClass>):
         holder.itemname.text = list[position].title
         holder.price.text = "£  " + list.get(position).price.toString()
         val image = list[position].imageResource
-          val  count=sharedPreference?.getInt(item.title,0)
+        val  count=sharedPreference?.getInt(item.title,0)
         holder.quantity.text = count.toString()
         holder.item_image.load(image) {
             crossfade(true)
