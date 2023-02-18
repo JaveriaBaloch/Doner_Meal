@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10sp"
+            android:layout_margin="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/paymentheading">
 
@@ -33,7 +33,7 @@
                 android:layout_width="404dp"
                 android:layout_height="46dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="320dp"
+                android:layout_marginTop="20dp"
                 android:background="#F1C40F "
                 android:fontFamily="sans-serif-black"
                 android:text="DELIVERY INFORMATION"
