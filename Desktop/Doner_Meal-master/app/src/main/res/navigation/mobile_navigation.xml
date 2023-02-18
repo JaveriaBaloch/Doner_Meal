@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.myapplication.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+                    android:id="@+id/action_to_cart"
+                    app:destination="@id/cart" />
+    </fragment>
+    <fragment
+        android:id="@+id/cart"
+        android:name="com.example.myapplication.ui.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_to_order"
+            app:destination="@id/checkout" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkout"
+        android:name="com.example.myapplication.ui.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout">
+
+        <action
+            android:id="@+id/action_to_home"
+            app:destination="@id/home" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/orders_list"
+        android:name="com.example.myapplication.ui.ordersList.OrdersListFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders_list">
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.myapplication.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/signout"
+        android:name="com.example.myapplication.ui.signout.SignoutFragment"
+        android:label="LogOut"
+        tools:layout="@layout/fragment_signout" />
+
+</navigation>
