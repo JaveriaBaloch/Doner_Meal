@@ -40,11 +40,12 @@ class OrdersListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = OrdersListAdapter(orders)
         if (email != null) {
-            firestore.collection("orders").whereEqualTo("email","${email.toString()}")
+            var orders = ArrayList<HashMap<Any, Any>>()
+            firestore.collection("orders").whereEqualTo("email","${email}")
                 .get()
                 .addOnSuccessListener { documents ->
                     documents.forEach{info->
-                        var orders = ArrayList<HashMap<Any, Any>>()
+
                         var order =  hashMapOf<Any,Any>(
                             "date" to info.getString("date").toString(),
                             "price" to info.getString("price").toString(),
