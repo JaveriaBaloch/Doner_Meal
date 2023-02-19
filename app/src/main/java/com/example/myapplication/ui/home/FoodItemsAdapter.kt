@@ -38,9 +38,18 @@ class FoodItemsAdapter(itemClass: ArrayList<itemClass>):
     override fun onBindViewHolder(holder: FoodItemsViewHolder, position: Int) {
        holder.itemname.text = list.get(position).title
         holder.price.text = "€" + list.get(position).price.toString()
+        var  count=sharedPreference?.getInt(list.get(position).title,0)
         val image = list[position].imageResource
-        val  count=sharedPreference?.getInt(list.get(position).title,0)
+        sharedPreference?.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+              count =sharedPreference?.getInt(list.get(position).title,0)
+
+        }
+
         holder.quantity.text = count.toString()
+        sharedPreference?.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+            val set =sharedPreference?.getInt(list.get(position).title,0)
+            holder.quantity.text = set.toString()
+        }
         holder.item_image.load(image) {
             crossfade(true)
             placeholder(R.drawable.loading_background)
@@ -49,18 +58,20 @@ class FoodItemsAdapter(itemClass: ArrayList<itemClass>):
             holder.munisBtn.setOnClickListener {
 
             if(Integer.parseInt(holder.quantity.text.toString())>0) {
-                val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1
-                holder.quantity.text = count.toString()
-                editor?.putInt(list[position].title,count)
-                editor?.apply()
+                    val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1
+                    holder.quantity.text = count.toString()
+                    editor?.putInt(list[position].title,count)
+                    editor?.apply()
 
             }
         }
         holder.plus.setOnClickListener {
-                val count: Int = Integer.parseInt(holder.quantity.text.toString()) + 1;
+
+            val count: Int = Integer.parseInt(holder.quantity.text.toString()) + 1;
             holder.quantity.text = count.toString()
-            editor?.putInt(list[position].title.toString(),count)
-            editor?.apply()
+                editor?.putInt(list[position].title.toString(), count)
+                editor?.apply()
+
         }
     }
     class FoodItemsViewHolder(itemView: View) : ViewHolder(itemView) {

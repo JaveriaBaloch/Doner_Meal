@@ -91,7 +91,6 @@ class CheckoutFragment: Fragment() {
 
         confirmbtn.setOnClickListener {
             // Initialize total value to 0
-            var totalValue = 0.0
             val fullname = fname.text.toString()
             val phone = phone_.text.toString()
             val email = email.text.toString()
@@ -112,10 +111,12 @@ class CheckoutFragment: Fragment() {
             firestore.collection("orders").document().set(orderDate, SetOptions.merge()).addOnSuccessListener {
                 editor?.clear()
                 editor?.apply()
+                Toast.makeText(context,"Ordered Successfully",Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(view).navigate(R.id.action_to_home)
+            }.addOnFailureListener{
+                Toast.makeText(context,"Please try again!!",Toast.LENGTH_SHORT).show()
+
             }
-
-
-            Navigation.findNavController(view).navigate(R.id.action_to_home)
 
         }
 
