@@ -19,6 +19,7 @@ import com.example.myapplication.ui.home.itemClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import org.checkerframework.checker.units.qual.s
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,21 +72,8 @@ class CheckoutFragment: Fragment() {
         phone_.setText(userinfo?.getString("phone","none"))
         email.setText(userinfo?.getString("email","none"))
         address.setText(userinfo?.getString("address","none"))
-        var price = 0
+        var price = sharedPreference?.getFloat("price",00F)
         val list = arrayListOf<HashMap<Any,Any>>()
-        for (menuItem in items) {
-            if((sharedPreference?.getInt(menuItem.title,0))!=0){
-                val item = hashMapOf<Any,Any>(
-                    "quantity" to sharedPreference?.getInt(menuItem.title,0).toString(),
-                    "ordered_Items" to menuItem
-                )
-                list.add(item)
-                if(price>0){
-                    price *= menuItem.price.toInt()
-                }else
-                    price = sharedPreference?.getInt(menuItem.title,0)!!
-            }
-        }
 
 
 

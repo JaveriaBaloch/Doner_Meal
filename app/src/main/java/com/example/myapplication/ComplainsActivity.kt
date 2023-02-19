@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -43,6 +44,9 @@ class ComplainsActivity : AppCompatActivity() {
                         complain["complain"] = complainText.text.toString()
                        firestore.collection("complains").document().set(complain).addOnSuccessListener {
                             Toast.makeText(applicationContext, "Your complain is registered!",Toast.LENGTH_SHORT).show()
+                           val mainActivity = Intent(this, MainActivity::class.java)
+                           startActivity(mainActivity)
+                           finish()
                         }.addOnFailureListener {
                             Toast.makeText(applicationContext, "Please submit again!",Toast.LENGTH_SHORT).show()
                         }
