@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.orders
+package com.example.myapplication.ui.ordersList
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -22,7 +22,7 @@ class OrdersListFragment : Fragment() {
     lateinit var firestore: FirebaseFirestore
     var userID: String = ""
     lateinit var fAuth : FirebaseAuth
-    val orders = arrayListOf<HashMap<Any, Any>>()
+    var orders = ArrayList<HashMap<Any, Any>>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,21 +34,30 @@ class OrdersListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_orders_list, container, false)
         fAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-        firestore.collection("orders").whereEqualTo("email",email).get()
-            .addOnSuccessListener { documents ->
-            documents.forEach{info->
-                var order =  hashMapOf<Any,Any>(
-                    "date" to info.getString("date").toString(),
-                )
-                orders.add(order)
-                val p = orders[0]["date"].toString()
-                Log.d("order", p)
-            }
-
-        }
         val recyclerView: RecyclerView = view.findViewById(R.id.order_list_recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = OrdersListAdapter(orders)
+        if (email != null) {
+            firestore.collection("orders").whereEqualTo("email","${email.toString()}")
+                .get()
+                .addOnSuccessListener { documents ->
+                    documents.forEach{info->
+                        var order =  hashMapOf<Any,Any>(
+                            "id" to info.id.toString(),
+                            "date" to info.getString("date").toString(),
+                        )
+                        orders.add(order)
+                        orders[0]["date"].toString()
+                        Log.d("order", email)
+                        val adapter = OrdersListAdapter(orders)
+                        recyclerView.adapter = adapter
+                    }
+
+                } .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
+                }
+        }
+        Log.d("order", orders.size.toString())
         recyclerView.adapter = adapter
 
         return view

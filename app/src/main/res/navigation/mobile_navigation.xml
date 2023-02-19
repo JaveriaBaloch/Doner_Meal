@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/cart"
-        android:name="com.example.myapplication.ui.cart.CartFragment"
+        android:name="com.example.myapplication.ui.cart.OrderViewFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -36,9 +36,9 @@
     </fragment>
     <fragment
         android:id="@+id/orders"
-        android:name="com.example.myapplication.ui.orders.OrdersFragment"
+        android:name="com.example.myapplication.ui.ordersList.OrdersListFragment"
         android:label="Orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders_list" />
 
     <fragment
         android:id="@+id/profile"

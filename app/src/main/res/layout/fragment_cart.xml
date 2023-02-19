@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="clip_horizontal|center|center_horizontal"
     android:backgroundTint="@color/secondary"
-    tools:context=".ui.cart.CartFragment">
+    tools:context=".ui.cart.OrderViewFragment">
 
 
 
@@ -34,14 +34,35 @@
             app:layout_constraintEnd_toEndOf="parent"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/got_to_orders"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm Order"
+        android:background="@drawable/luanchscreen"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+
+            android:id="@+id/total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/got_to_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Confirm Order" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.example.myapplication.ui.cart
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.itemClass
-import com.google.gson.Gson
 
 class CartItemsAdapter(itemClass: ArrayList<itemClass>):
-    RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
+    RecyclerView.Adapter<OrderViewAdapter.CartItemsViewHolder>() {
     var onCartItemRemovedListener: OnCartItemRemovedListener? = null
 
     interface OnCartItemRemovedListener{

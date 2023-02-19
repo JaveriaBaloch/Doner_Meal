@@ -12,22 +12,18 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.ui.cart.CartItemsAdapter
 import com.example.myapplication.ui.home.cartItems
 import com.example.myapplication.ui.home.itemClass
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import org.json.JSONArray
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class CheckoutFragment: Fragment() {
@@ -39,6 +35,9 @@ class CheckoutFragment: Fragment() {
     lateinit var confirmbtn : Button
     lateinit var backbtn : ImageButton
 
+    lateinit var firestore: FirebaseFirestore
+    var userID: String = ""
+    lateinit var fAuth : FirebaseAuth
     var category:Array<String> = arrayOf("All", "Döner Gerichte", "Omlette", "Pizza", "Vegetarische Gerichte", "Salate",
         "Finger Food","Heisse Getränke","Alkoholfrei Getränke")
     var sharedPreference: SharedPreferences? = null
@@ -49,37 +48,42 @@ class CheckoutFragment: Fragment() {
 
 
 
-    private lateinit var database : DatabaseReference
-
-
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val userinfo =this.activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
 
         val view = inflater.inflate(R.layout.fragment_checkout, container, false)
         sharedPreference= this.activity?.getSharedPreferences("cart", Context.MODE_PRIVATE)
         editor = sharedPreference?.edit()
         val items = itemClass.getMenuItems("menu.json", requireContext())
-
+        firestore = FirebaseFirestore.getInstance()
         fname = view.findViewById<EditText>(R.id.fullnametxtbox)
         phone_ = view.findViewById<EditText>(R.id.phonenotxtbox)
         address = view.findViewById<EditText>(R.id.addresstxtbox)
         email = view.findViewById<EditText>(R.id.emailtxtbox)
         notes = view.findViewById<EditText>(R.id.notestxtbox)
-
         confirmbtn = view.findViewById(R.id.confirmbtn1)
-        database = FirebaseDatabase.getInstance().getReference("Checkout")
 
-        val list = arrayListOf<itemClass>()
+        fname.setText(userinfo?.getString("name","none"))
+        phone_.setText(userinfo?.getString("phone","none"))
+        email.setText(userinfo?.getString("email","none"))
+        address.setText(userinfo?.getString("address","none"))
+        var price = 0
+        val list = arrayListOf<HashMap<Any,Any>>()
         for (menuItem in items) {
             if((sharedPreference?.getInt(menuItem.title,0))!=0){
-                list.add(menuItem)
+                val item = hashMapOf<Any,Any>(
+                    "quantity" to sharedPreference?.getInt(menuItem.title,0).toString(),
+                    "ordered_Items" to menuItem
+                )
+                list.add(item)
+                if(price>0){
+                    price *= menuItem.price.toInt()
+                }else
+                    price = sharedPreference?.getInt(menuItem.title,0)!!
             }
         }
 
@@ -88,14 +92,6 @@ class CheckoutFragment: Fragment() {
         confirmbtn.setOnClickListener {
             // Initialize total value to 0
             var totalValue = 0.0
-
-            // Loop through the selected items to calculate the total value
-            for (item in list) {
-                val quantity = sharedPreference?.getInt(item.title, 0) ?: 0
-                val itemValue = item.price * quantity
-                totalValue += itemValue
-            }
-
             val fullname = fname.text.toString()
             val phone = phone_.text.toString()
             val email = email.text.toString()
@@ -103,8 +99,10 @@ class CheckoutFragment: Fragment() {
             val additionalnotes = notes.text.toString()
             val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
-            val checkoutMap = hashMapOf(
+            val orderDate = hashMapOf(
+                "date" to currentDate,
                 "cartItems" to list,
+                "price" to price,
                 "currentDate" to currentDate,
                 "totalValue" to totalValue,
                 "fullname" to fullname,
@@ -113,29 +111,7 @@ class CheckoutFragment: Fragment() {
                 "address" to address,
                 "additionalnotes" to additionalnotes
             )
-
-
-
-
-            val checkoutuser = UserCheckout(fullname, phone, email, address, additionalnotes, list, currentDate, totalValue)
-
-            Log.d("CheckoutFragment", "fullname: $fullname")
-            Log.d("CheckoutFragment", "phone: $phone")
-            Log.d("CheckoutFragment", "email: $email")
-            Log.d("CheckoutFragment", "address: $address")
-            Log.d("CheckoutFragment", "additionalnotes: $additionalnotes")
-            Log.d("CheckoutFragment", "cartItems: ${list}")
-            Log.d("CheckoutFragment", "currentDate: ${currentDate}")
-            Log.d("CheckoutFragment", "totalValue: ${totalValue}")
-
-
-
-            database.child(fullname).setValue(checkoutMap).addOnSuccessListener {
-                Toast.makeText(requireContext(), "Checkout Successful", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-                Toast.makeText(requireContext(), "Checkout Fail", Toast.LENGTH_SHORT).show()
-            }
-
+            firestore.collection("orders").document().set(orderDate, SetOptions.merge())
 
 
             Navigation.findNavController(view).navigate(R.id.action_to_home)

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.cart
+package com.example.myapplication.ui.orderView
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -19,7 +19,7 @@ import com.example.myapplication.ui.home.itemClass
 import org.json.JSONObject
 
 
-class CartFragment : Fragment() {
+class OrderViewFragment : Fragment() {
     var category:Array<String> = arrayOf("All", "Döner Gerichte", "Omlette", "Pizza", "Vegetarische Gerichte", "Salate",
     "Finger Food","Heisse Getränke","Alkoholfrei Getränke")
     var sharedPreference: SharedPreferences? = null
@@ -35,32 +35,23 @@ class CartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ):View {
-        val view = inflater.inflate(R.layout.fragment_cart, container, false)
-        sharedPreference= this.activity?.getSharedPreferences("cart", Context.MODE_PRIVATE)
-        editor = sharedPreference?.edit()
-        val items = itemClass.getMenuItems("menu.json", requireContext())
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler1)
+        val view = inflater.inflate(R.layout.fragment_orders_view, container, false)
+        sharedPreference= this.activity?.getSharedPreferences("show", Context.MODE_PRIVATE)
+        editor = sharedPreference?.edit(
         recyclerView.layoutManager = LinearLayoutManager(context)
         var price = 0
-        val list = arrayListOf<itemClass>()
-        for (menuItem in items) {
-            if((sharedPreference?.getInt(menuItem.title,0))!=0){
-                    list.add(menuItem)
-                if(price>0.00){
-                    price *= menuItem.price.toInt()
-                }else
-                    price = sharedPreference?.getInt(menuItem.title,0)!!
-                }
-        }
-        val priceText = view.findViewById<TextView>(R.id.total_price)
-        priceText.text = "Total: € $price"
-        val adapter = CartItemsAdapter(list)
-        recyclerView.adapter = adapter
-        val goToOrdersButton = view.findViewById<Button>(R.id.got_to_orders)
-        goToOrdersButton.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_to_order)
+        val list = arrayListOf<HashMap<Any,Any>>()
 
-        }
+
+//        for (menuItem in items) {
+//            if((sharedPreference?.getInt(menuItem.title,0))!=0){
+//                    list.add(menuItem)
+//                if(price>0.00){
+//                    price *= menuItem.price.toInt()
+//                }else
+//                    price = sharedPreference?.getInt(menuItem.title,0)!!
+//                }
+//        }
 
 
 
