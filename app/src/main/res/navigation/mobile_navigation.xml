@@ -19,12 +19,28 @@
         android:name="com.example.myapplication.ui.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_to_order"
+            app:destination="@id/checkout" />
     </fragment>
     <fragment
-        android:id="@+id/orders"
-        android:name="com.example.myapplication.ui.orders.OrdersFragment"
+        android:id="@+id/checkout"
+        android:name="com.example.myapplication.ui.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout">
+
+        <action
+            android:id="@+id/action_to_home"
+            app:destination="@id/home" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/orders_list"
+        android:name="com.example.myapplication.ui.ordersList.OrdersListFragment"
         android:label="Orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders_list">
+    </fragment>
+
 
     <fragment
         android:id="@+id/profile"
