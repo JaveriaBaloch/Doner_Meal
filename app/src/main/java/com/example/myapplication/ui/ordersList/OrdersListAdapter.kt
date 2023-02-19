@@ -38,8 +38,11 @@ class OrdersListAdapter(itemClass: ArrayList<HashMap<Any, Any>>):
         holder.price.text = "Price:\t  €  "+list[position]["price"].toString()
         holder.address.text = "address:\t"+list[position]["address"].toString()
         val note =  list[position]["note"].toString()
-        if(note!=null){
+        if(note!=""){
             holder.additionalInfo.text = "Additional Note:\t"+list[position]["note"].toString()
+        }else{
+            holder.additionalInfo.setVisibility(View.GONE)
+
         }
     }
 
