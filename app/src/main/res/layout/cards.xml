@@ -34,8 +34,7 @@
             android:layout_height="160dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/d1_foreground"
-            tools:srcCompat="@mipmap/d1_foreground"
+
             />
 
         <LinearLayout
