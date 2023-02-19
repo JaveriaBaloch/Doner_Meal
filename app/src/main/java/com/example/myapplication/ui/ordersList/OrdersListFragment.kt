@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -42,13 +44,15 @@ class OrdersListFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { documents ->
                     documents.forEach{info->
+                        var orders = ArrayList<HashMap<Any, Any>>()
                         var order =  hashMapOf<Any,Any>(
-                            "id" to info.id.toString(),
                             "date" to info.getString("date").toString(),
+                            "price" to info.getString("price").toString(),
+                            "address" to info.getString("address").toString(),
+                            "note" to info.getString("additionalnotes").toString(),
                         )
                         orders.add(order)
-                        orders[0]["date"].toString()
-                        Log.d("order", email)
+
                         val adapter = OrdersListAdapter(orders)
                         recyclerView.adapter = adapter
                     }
@@ -59,7 +63,6 @@ class OrdersListFragment : Fragment() {
         }
         Log.d("order", orders.size.toString())
         recyclerView.adapter = adapter
-
         return view
     }
 

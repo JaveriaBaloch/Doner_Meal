@@ -41,20 +41,26 @@ class CartFragment : Fragment() {
         val items = itemClass.getMenuItems("menu.json", requireContext())
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler1)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        var price = 0
+        var price = 0.00
         val list = arrayListOf<itemClass>()
         for (menuItem in items) {
             if((sharedPreference?.getInt(menuItem.title,0))!=0){
                     list.add(menuItem)
-                if(price>0.00){
-                    price *= menuItem.price.toInt()
+                if(price>0){
+                    price += menuItem.price
                 }else
-                    price = sharedPreference?.getInt(menuItem.title,0)!!
+                    price += menuItem.price*sharedPreference?.getInt(menuItem.title,0)!!
+                    editor?.putFloat("price",price.toFloat())
+                    editor?.apply()
                 }
         }
         val priceText = view.findViewById<TextView>(R.id.total_price)
-        priceText.text = "Total: € $price"
-        val adapter = OrderViewAdapter(list)
+        sharedPreference?.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+            priceText.text = "Total: € "+sharedPreference?.getFloat("price", 0.0F).toString()
+        }
+        priceText.text = "Total: € "+sharedPreference?.getFloat("price", 0.0F).toString()
+        toString()
+        val adapter = CartItemsAdapter(list)
         recyclerView.adapter = adapter
         val goToOrdersButton = view.findViewById<Button>(R.id.got_to_orders)
         goToOrdersButton.setOnClickListener{
@@ -63,28 +69,6 @@ class CartFragment : Fragment() {
         }
 
 
-
-        /*val goToOrdersButton = view.findViewById<Button>(R.id.got_to_orders)
-        goToOrdersButton.setOnClickListener{
-            val cartItems = JSONArray()
-            for (item in list) {
-                val itemJson = JSONObject()
-                itemJson.put("title", item.title)
-                itemJson.put("quantity", sharedPreference?.getInt(item.title, 0))
-                itemJson.put("price", item.price)
-                cartItems.put(itemJson)
-            }
-            Log.d("CartFragment", "Saved cartItems: $cartItems")
-
-            sharedViewModel.cartItems.value = cartItems
-
-           /* // Save the cart items in SharedPreferences
-            val bundle = Bundle()
-            bundle.putString("cartItems", cartItems.toString())*/
-
-            Navigation.findNavController(view).navigate(R.id.action_to_order)
-
-        }*/
 
 
         return view

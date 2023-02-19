@@ -16,7 +16,7 @@ import com.example.myapplication.R
 import com.example.myapplication.ui.home.itemClass
 
 class CartItemsAdapter(itemClass: ArrayList<itemClass>):
-    RecyclerView.Adapter<OrderViewAdapter.CartItemsViewHolder>() {
+    RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
     var onCartItemRemovedListener: OnCartItemRemovedListener? = null
 
     interface OnCartItemRemovedListener{
@@ -55,12 +55,23 @@ class CartItemsAdapter(itemClass: ArrayList<itemClass>):
             if(Integer.parseInt(holder.quantity.text.toString())>0) {
                 val count: Int = Integer.parseInt(holder.quantity.text.toString()) - 1
                 holder.quantity.text = count.toString()
+                val price = list[position].price
+                val final = sharedPreference?.getFloat("price",00F)?.minus(price.toFloat())
+                if (final != null) {
+                    editor?.putFloat("price",final.toFloat())
+                }
+                editor?.apply()
             }
         }
         holder.plus.setOnClickListener {
             val count: Int = Integer.parseInt(holder.quantity.text.toString()) + 1
             holder.quantity.text = count.toString()
-
+            val price = list[position].price
+            val final = sharedPreference?.getFloat("price",00F)?.plus(price.toFloat())
+            if (final != null) {
+                editor?.putFloat("price",final.toFloat())
+            }
+            editor?.apply()
         }
     }
 

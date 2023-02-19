@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.ordersList
 
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.R
@@ -33,16 +35,19 @@ class OrdersListAdapter(itemClass: ArrayList<HashMap<Any, Any>>):
     override fun getItemCount() = list.size
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         holder.date.text = list[position]["date"].toString()
-        holder.show.setOnClickListener{
-
-            editor?.putString("id",list[position]["id"].toString())
-            editor?.apply()
+        holder.price.text = "Price:\t  €  "+list[position]["price"].toString()
+        holder.address.text = "address:\t"+list[position]["address"].toString()
+        val note =  list[position]["note"].toString()
+        if(note!=null){
+            holder.additionalInfo.text = "Additional Note:\t"+list[position]["note"].toString()
         }
     }
 
     class OrdersViewHolder(itemView: View) : ViewHolder(itemView) {
         val date = itemView.findViewById<TextView>(R.id.ordersDate)
-        val show = itemView.findViewById<Button>(R.id.show)
+        val price = itemView.findViewById<TextView>(R.id.order_item_price)
+        val address = itemView.findViewById<TextView>(R.id.order_item_address)
+        val additionalInfo = itemView.findViewById<TextView>(R.id.additional_note)
     }
 
 }

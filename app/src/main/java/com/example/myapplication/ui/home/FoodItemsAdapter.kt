@@ -37,7 +37,7 @@ class FoodItemsAdapter(itemClass: ArrayList<itemClass>):
     override fun getItemCount() = list.size
     override fun onBindViewHolder(holder: FoodItemsViewHolder, position: Int) {
        holder.itemname.text = list.get(position).title
-        holder.price.text = "$ " + list.get(position).price.toString()
+        holder.price.text = "€" + list.get(position).price.toString()
         val image = list[position].imageResource
         val  count=sharedPreference?.getInt(list.get(position).title,0)
         holder.quantity.text = count.toString()

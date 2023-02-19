@@ -102,16 +102,17 @@ class CheckoutFragment: Fragment() {
             val orderDate = hashMapOf(
                 "date" to currentDate,
                 "cartItems" to list,
-                "price" to price,
-                "currentDate" to currentDate,
-                "totalValue" to totalValue,
+                "price" to price.toString(),
                 "fullname" to fullname,
                 "phone" to phone,
                 "email" to email,
                 "address" to address,
                 "additionalnotes" to additionalnotes
             )
-            firestore.collection("orders").document().set(orderDate, SetOptions.merge())
+            firestore.collection("orders").document().set(orderDate, SetOptions.merge()).addOnSuccessListener {
+                editor?.clear()
+                editor?.apply()
+            }
 
 
             Navigation.findNavController(view).navigate(R.id.action_to_home)
