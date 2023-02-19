@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myapplication.R
 import com.example.myapplication.ui.home.itemClass
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class OrderViewAdapter(itemClass: ArrayList<itemClass>):
     RecyclerView.Adapter<OrderViewAdapter.CartItemsViewHolder>() {
