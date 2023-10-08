@@ -40,14 +40,14 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: null,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 60, horizontal: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             LogoAndText(Color.fromARGB(255, 55, 2, 95)),
+            SizedBox(height: 30,),
             Container(
               width: 300.0, // Set the desired width
-              height: MediaQuery.of(context).size.height * 0.6,
               child: Center(
                 child: Column(
                   children: <Widget>[

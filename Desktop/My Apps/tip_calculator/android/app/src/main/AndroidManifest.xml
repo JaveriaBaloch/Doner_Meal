@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application
         android:label="tip_calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -29,9 +31,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
         <meta-data
-            android:name='com.google.android.gms.ads.APPLICATION_ID'
-            android:value = 'ca-app-pub-9064052677511324~1107017435'
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value = "ca-app-pub-9064052677511324~7581652797"
         />
     </application>
 </manifest>

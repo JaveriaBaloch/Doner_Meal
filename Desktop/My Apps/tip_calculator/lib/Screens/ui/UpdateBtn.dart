@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tip_calculator/Screens/ui/secodarybuttonInk.dart';
 import 'package:tip_calculator/Screens/ui/secondaryStyleForm.dart';
+import 'package:tip_calculator/services/ad_mob_service.dart';
+import 'package:tip_calculator/utils/rewardAd.dart';
 import 'package:tip_calculator/utils/sendemail.dart';
 import 'package:tip_calculator/utils/dailog.dart';
 
@@ -18,6 +21,7 @@ class UpdateButton extends StatelessWidget {
   _showAlertDialog(context,message){
    
     DialogAlertMessage(context, message);
+
   }
 
   void _saveDataToPreferences() async {
@@ -36,7 +40,7 @@ class UpdateButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
+ loadVideoAd();
         if (nameController.text.isEmpty) {
           _showAlertDialog(context, 'Please enter your name.');
         } else if (!emailRegExp.hasMatch(emailController.text) || emailController.text.isEmpty) {
@@ -45,6 +49,7 @@ class UpdateButton extends StatelessWidget {
           _saveDataToPreferences();
           _showAlertDialog(context, 'Data updated successfully and notification sent!');
         }
+       
       },
       child: SecondaryInk('Update', 45, 16.0),
       style: SecondaryStyleForm(),

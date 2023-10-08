@@ -6,7 +6,7 @@ import 'package:tip_calculator/utils/sendemail.dart';
 class PrimaryButton extends StatelessWidget {
   final BuildContext context;
   final TextEditingController userName;
-  final StatefulWidget NextScreen;
+  final NextScreen;
   final String type;
 
   PrimaryButton({

@@ -43,9 +43,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       body: Center(
         child:  Padding(
-        padding: EdgeInsets.only(top:20.0,left: 5,right: 5, bottom: 0),
+        padding: EdgeInsets.only(top:60.0,left: 5,right: 5, bottom: 0),
         child: Column(
           children: [
+            Container(
+              width: MediaQuery.of(context).size.width*0.9,
+          child:
               TextField(
                 controller: searchController,
                 onChanged: (value) {
@@ -74,7 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       : null,
                 ),
               ),
-            
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: getDisplayedData().length,

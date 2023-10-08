@@ -32,17 +32,12 @@ dependencies:
     sdk: flutter
   shared_preferences: ^2.0.9
   mailer: ^5.0.0
-  google_mobile_ads: ^3.0.0
-  # firebase_admob: ^0.11.0  # or the latest version
-
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  google_mobile_ads: ^1.0.1
   cupertino_icons: ^1.0.2
-  path_provider: ^2.1.0
+  path_provider: ^2.0.15
   hooks_riverpod: ^2.3.8
-  firebase_admob: ^0.11.2
+  device_info_plus: ^9.0.3
+
 
 dev_dependencies:
   flutter_test:

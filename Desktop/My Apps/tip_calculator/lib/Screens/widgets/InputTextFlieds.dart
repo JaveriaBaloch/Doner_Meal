@@ -4,15 +4,15 @@ InputTextFlied(String placeholder,  userName){
   return Container(
     width: 290,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 175, 171, 171).withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 7,
-                  offset: Offset(3, 3),
-                ),
-              ],
+      borderRadius: BorderRadius.circular(30),
+              // boxShadow: [
+                // BoxShadow(
+                  // color: Color.fromARGB(255, 175, 171, 171).withOpacity(0.5),
+                  // spreadRadius: 1,
+                  // blurRadius: 7,
+                  // offset: Offset(3, 3),
+                // ),
+              // ],
               border: Border.all(color: const Color.fromARGB(255, 156, 156, 156).withOpacity(0.5), width: 1.0),
             ),
           child:TextField(

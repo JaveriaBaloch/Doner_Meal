@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:tip_calculator/Screens/ui/bannerad%20copy.dart';
+import 'package:tip_calculator/Screens/ui/homeAd.dart';
 import 'package:tip_calculator/Screens/widgets/BigCard.dart';
 import 'package:tip_calculator/Screens/widgets/InputTextFlieds.dart';
 import 'package:tip_calculator/Screens/widgets/barCard.dart';
@@ -6,6 +9,7 @@ import 'package:tip_calculator/Screens/widgets/bottomNavigation.dart';
 import 'package:tip_calculator/Screens/widgets/numberInput.dart';
 import 'package:tip_calculator/Screens/widgets/secondaryButton.dart';
 import 'package:tip_calculator/Screens/widgets/smallCard.dart';
+import 'package:tip_calculator/services/ad_mob_service.dart';
 import 'package:tip_calculator/utils/onTapNav.dart';
 
 void onTextChanged(TextEditingController controller, Function(String) onChanged) {
@@ -13,8 +17,25 @@ void onTextChanged(TextEditingController controller, Function(String) onChanged)
     onChanged(controller.text);
   });
 }
+AppOpenAd? openAd;
 
+Future<void> loadAd()async{
+  await AppOpenAd.load(
+    adUnitId: 'ca-app-pub-9064052677511324/8890827049', 
+    request: const AdRequest(), 
+    adLoadCallback: AppOpenAdLoadCallback(
+      onAdLoaded: (ad){
+        print('ad is Loaded');
+        openAd=ad;
+        openAd!.show();
+  },
+  onAdFailedToLoad: (err){
+    print('add failed to load $err');
+  },), 
+  orientation: AppOpenAd.orientationPortrait);
+}
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,7 +43,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  
   TextEditingController total_Bill = TextEditingController();
   TextEditingController peoples = TextEditingController();
   TextEditingController references = TextEditingController();
@@ -33,47 +53,38 @@ class _HomeScreenState extends State<HomeScreen> {
   String tip = '0';
   double total_amount =0;
   String ref='';
+
    @override
   void initState() {
-    
     super.initState();
-
-    // Add text input formatters to limit input to numeric values
     total_Bill..addListener(() => total_tip_amount());
     peoples..addListener(() => total_tip_amount());
-    // references..addListener(() => total_tip_amount()); // Add this line
-//  myBanner
-    // ..load()
-    // ..show(
-      // anchorType: AnchorType.bottom,
-    // );
   }
 
-@override
-void dispose() {
-  // myBanner.dispose();
-  super.dispose();
-}
+
   @override
   Widget build(BuildContext context) {
-   
+  const int maxFailedLoadAttempts = 3;
+
     return Scaffold(
-      appBar: null,
+      backgroundColor: Color.fromARGB(255, 249, 249, 249),
+      appBar:null,
       body: OrientationBuilder(
         
         builder: (BuildContext context, Orientation orientation) {
           return Center(
             child: Container(
               
-              padding: EdgeInsets.only(top: 10.0, left: 20.0,right: 20),
+              padding: EdgeInsets.only(top: 0.0, left: 20.0,right: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Expanded(
                     child: ListView(
                       children: [
-                        SizedBox(height: 20,),
+                        // SizedBox(height: 20,),
                         NumberInput('Total Bill', total_Bill),
-                        BarCard('Tip: \$', tip),
+                        BarCard('Tip', tip),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -129,17 +140,22 @@ void dispose() {
                         Flexible(
                           child: BigCard('Your\nTotal', your_total.toStringAsFixed(2)),
                           ),
-                        SaveButton(context,total_amount, tip,total_Bill.text,ref,peoples.text,tip_percent,your_bill,your_tip)
+                              
+                                 SaveButton(context,total_amount, tip,total_Bill.text,ref,peoples.text,tip_percent,your_bill,your_tip),
+                        SizedBox(height: 20,),
                       ],
                     ),
                   ),
+                  CustomBannerAd()
                 ],
               ),
             ),
           );
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar( selectedIndex: 1,
+      bottomNavigationBar:
+            
+      CustomBottomNavigationBar( selectedIndex: 1,
     onItemSelected: (index) => onTabTapped(index,context)
     )
     );
@@ -174,5 +190,8 @@ void dispose() {
     your_bill = 0.00;
   }
 }
+
+
+
 
 }

@@ -28,17 +28,18 @@ class _SetUpScreen1 extends State<SetUpScreen1> {
       appBar: null,
       body: Center(
         child: Container(
-          padding: EdgeInsets.only(top: 100.0, left: 26.0, right: 26.0),
+          padding: EdgeInsets.only(top: 60.0, left: 26.0, right: 26.0),
           constraints: BoxConstraints.expand(),
           decoration: PurpleBg(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child:  Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               LogoAndText(Color.fromARGB(255, 255, 255, 255)),
+              SizedBox(height: 40,),
               Container(
                 width: 300.0,
-                height: MediaQuery.of(context).size.height *
-                    0.5, // 60% of screen height
+                height: MediaQuery.of(context).size.height *0.3,
+                    // 0.5, // 60% of screen height
                 child: Form(
                   key: _formKey, // Set the form key
                   child: Center(

@@ -6,11 +6,15 @@ import 'package:tip_calculator/Screens/ui/secodarybuttonInk.dart';
 import 'package:tip_calculator/Screens/ui/secondaryStyleForm.dart';
 import 'package:tip_calculator/models/HistoryObject.dart';
 import 'package:intl/intl.dart';
+import 'package:tip_calculator/utils/rewardAd.dart';
 import 'package:tip_calculator/utils/sendemail.dart'; // Import the intl package
 
 SaveButton(BuildContext context,group_bill, group_tip,group_total,String location,peoples,percentage,your_bill,your_tip){
 return ElevatedButton(
+  
           onPressed:()  async{
+            loadVideoAd();
+            loadVideoAd();
             print("this is location: $location");
             final prefs = await SharedPreferences.getInstance();
             String? name= prefs.getString('name');
@@ -56,6 +60,7 @@ return ElevatedButton(
         </table>
         </div>
       ''';
+      
             SendEmailNotification(getMessage, name, email,'Your New Calculation!');
             DateTime currentDate = DateTime.now();
 
