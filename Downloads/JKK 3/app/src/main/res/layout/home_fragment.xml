@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#000000">
+
+        <!-- Make the text bold -->
+        android:id="@+id/cuisinesHeading" />
+        <!-- Pakistani Food Section -->
+
+        <TextView
+            android:fontFamily="@font/langar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Cuisines"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="54sp"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+
+                android:id="@+id/pakistaniFoodSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="Pakistani Food"
+                android:scaleType="fitCenter"
+                android:src="@drawable/food12" />
+
+
+            <TextView
+                android:fontFamily="@font/langar"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pakistani Food"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:background="#80000000"
+                android:padding="8dp" />
+        </FrameLayout>
+
+        <!-- Chinese Food Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="270dp">
+
+            <ImageView
+                android:id="@+id/chineseFoodSection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Chinese Food"
+                android:scaleType="fitCenter"
+                android:src="@drawable/food2" />
+
+
+            <TextView
+                android:fontFamily="@font/langar"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese Food"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:background="#80000000"
+                android:padding="8dp" />
+        </FrameLayout>
+
+
+
+        <!-- Italian Food Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="243dp">
+
+            <ImageView
+                android:id="@+id/italianFoodSection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Italian Food"
+                android:scaleType="fitCenter"
+                android:src="@drawable/food3" />
+
+
+            <TextView
+                android:fontFamily="@font/langar"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Italian Food"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:background="#80000000"
+                android:padding="8dp" />
+        </FrameLayout>
+
+        <!-- American Food Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/AmericanFoodSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="American Food"
+                android:scaleType="fitCenter"
+                android:src="@drawable/food6" />
+
+
+            <TextView
+                android:fontFamily="@font/langar"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="American Food"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:background="#80000000"
+                android:padding="8dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="293dp">
+
+            <ImageView
+                android:id="@+id/PersonalisedMeal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Personalised Meal"
+                android:scaleType="fitCenter"
+                android:src="@drawable/food5" />
+
+
+            <TextView
+                android:fontFamily="@font/langar"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personalised Meal"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:background="#80000000"
+                android:padding="8dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
